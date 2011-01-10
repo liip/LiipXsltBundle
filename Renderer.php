@@ -55,6 +55,12 @@ class Renderer extends BaseRenderer
                 $child = $dom->importNode($value, true);
                 $parameter->appendChild($child);
             }
+            elseif ($value instanceof \SimpleXMLElement)
+            {
+                $node = dom_import_simplexml($value);
+                $child = $dom->importNode($node, true);
+                $parameter->appendChild($child);
+            }
             else
             {
                 $text = $dom->createTextNode($value);
