@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<container xmlns="http://www.symfony-project.org/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="xslt.renderer.class">Bundle\XsltBundle\Renderer</parameter>
+        <parameter key="xslt.options" type="collection">
+            <parameter key="debug">false</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <service id="xslt.renderer" class="%xslt.renderer.class%">
+            <tag name="templating.renderer" alias="xsl" />
+            <argument>%xslt.options%</argument>
+        </service>
+    </services>
+</container>
