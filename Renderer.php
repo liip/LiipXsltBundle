@@ -44,13 +44,22 @@ class Renderer extends BaseRenderer
         $root = $dom->createElement('response');
         $root = $dom->appendChild($root);
 
-        foreach ($parameters as $name => $value) {
+        foreach ($parameters as $name => $value)
+        {
 
             $parameter = $dom->createElement($name);
             $parameter = $root->appendChild($parameter);
 
-            $text = $dom->createTextNode($value);
-            $text = $parameter->appendChild($text);
+            if ($value instanceof \DOMElement)
+            {
+                $child = $dom->importNode($value, true);
+                $parameter->appendChild($child);
+            }
+            else
+            {
+                $text = $dom->createTextNode($value);
+                $parameter->appendChild($text);
+            }
         }
 
         // Debug mode
