@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\XsltBundle\DependencyInjection;
+namespace Bundle\Liip\XsltBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\XsltBundle;
+namespace Bundle\Liip\XsltBundle;
 
 use Symfony\Component\Templating\Renderer\Renderer as BaseRenderer;
 use Symfony\Component\HttpKernel\Kernel;
