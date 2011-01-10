@@ -39,6 +39,7 @@ class Renderer extends BaseRenderer
         $xsl = new \XSLTProcessor();
         $xsl->importStyleSheet($dom);
 
+        $dom = new \DOMDocument();
         $root = $dom->createElement('response');
         $root = $dom->appendChild($root);
 
