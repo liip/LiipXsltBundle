@@ -40,7 +40,7 @@ class Renderer extends BaseRenderer
         $xsl->importStyleSheet($dom);
 
         $dom = new \DOMDocument();
-        $root = $dom->createElement('response');
+        $root = $dom->createElement('page');
         $root = $dom->appendChild($root);
 
         foreach ($parameters as $name => $value)
