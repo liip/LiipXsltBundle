@@ -3,15 +3,14 @@
 
     <parameters>
         <parameter key="xslt.renderer.class">Bundle\XsltBundle\Renderer</parameter>
-        <parameter key="xslt.options" type="collection">
-            <parameter key="debug">false</parameter>
-        </parameter>
+        <parameter key="xslt.options" type="collection"></parameter>
     </parameters>
 
     <services>
         <service id="xslt.renderer" class="%xslt.renderer.class%">
             <tag name="templating.renderer" alias="xsl" />
-            <argument>%xslt.options%</argument>
+            <argument type="service" id="kernel" />
+            <argument type="service" id="request" />
         </service>
     </services>
 </container>

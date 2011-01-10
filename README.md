@@ -26,8 +26,7 @@ Installation
 3. Add the bundle to your application config:
 
         # app/config/config.yml
-        xslt.config:
-            debug: false
+        xslt.config: -
 
         # app/config/config.xml
         <xslt:config>
