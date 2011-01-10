@@ -31,7 +31,7 @@ class Renderer extends BaseRenderer
         {
             $dom->load($template);
         }
-            else
+        else
         {
             $dom->loadXML($template->getContent());
         }
