@@ -25,21 +25,19 @@ class Renderer extends BaseRenderer
      */
     public function evaluate(Storage $template, array $parameters = array())
     {
+        $dom = new \DOMDocument();
+
         if ($template instanceof FileStorage)
         {
-            $dom = new \DOMDocument();
             $dom->load($template);
-
-        } else {
-
-            $dom = new \DOMDocument();
+        }
+            else
+        {
             $dom->loadXML($template->getContent());
         }
 
         $xsl = new \XSLTProcessor();
         $xsl->importStyleSheet($dom);
-
-        $dom = new \DOMDocument();
 
         $root = $dom->createElement('response');
         $root = $dom->appendChild($root);
