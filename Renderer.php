@@ -50,7 +50,7 @@ class Renderer extends BaseRenderer
             $parameter = $dom->createElement($name);
             $parameter = $root->appendChild($parameter);
 
-            if ($value instanceof \DOMElement)
+            if ($value instanceof \DOMNode)
             {
                 $child = $dom->importNode($value, true);
                 $parameter->appendChild($child);
