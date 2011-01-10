@@ -29,6 +29,4 @@ Installation
         xslt.config: -
 
         # app/config/config.xml
-        <xslt:config>
-            <debug>false</debug>
-        </xslt:config>
+        <xslt:config />
