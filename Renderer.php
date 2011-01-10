@@ -33,12 +33,9 @@ class Renderer extends BaseRenderer
     {
         $dom = new \DOMDocument();
 
-        if ($template instanceof FileStorage)
-        {
+        if ($template instanceof FileStorage) {
             $dom->load($template);
-        }
-        else
-        {
+        } else {
             $dom->loadXML($template->getContent());
         }
 
@@ -49,25 +46,19 @@ class Renderer extends BaseRenderer
         $root = $dom->createElement('page');
         $root = $dom->appendChild($root);
 
-        foreach ($parameters as $name => $value)
-        {
+        foreach ($parameters as $name => $value) {
 
             $parameter = $dom->createElement($name);
             $parameter = $root->appendChild($parameter);
 
-            if ($value instanceof \DOMNode)
-            {
+            if ($value instanceof \DOMNode) {
                 $child = $dom->importNode($value, true);
                 $parameter->appendChild($child);
-            }
-            elseif ($value instanceof \SimpleXMLElement)
-            {
+            } elseif ($value instanceof \SimpleXMLElement) {
                 $node = dom_import_simplexml($value);
                 $child = $dom->importNode($node, true);
                 $parameter->appendChild($child);
-            }
-            else
-            {
+            } else {
                 $text = $dom->createTextNode($value);
                 $parameter->appendChild($text);
             }
@@ -82,19 +73,18 @@ class Renderer extends BaseRenderer
             'debug' => $this->kernel->isDebug() ? 'true' : 'false',
         );
 
-        foreach ($environment as $name => $value)
-        {
+        foreach ($environment as $name => $value) {
             $attr = $dom->createAttribute($name);
             $attr->appendChild($dom->createTextNode($value));
             $root->appendChild($attr);
         }
 
         // Debug mode
-        if ($this->kernel->isDebug())
-        {
+        if ($this->kernel->isDebug()) {
+
             // Check for ?XML parameter
-            if ($this->request->query->get('XML', false) !== false)
-            {
+            if ($this->request->query->get('XML', false) !== false) {
+
                 // print raw XML
                 header('Content-Type: text/xml');
                 echo $dom->saveXML();
