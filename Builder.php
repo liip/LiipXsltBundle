@@ -28,28 +28,6 @@ class Builder
     }
 
     /**
-     * Validates string as a dateTime string
-     * @param  $dateTime
-     * @return bool
-     */
-    public static function isValidDateTime($dateTime)
-    {
-        $matches = array();
-        if (preg_match("/^(\d{4})-(\d{2})-(\d{2}) ([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/", $dateTime, $matches))
-        {
-            if (isset ($matches [1]) && isset ($matches [2]) && isset ($matches [3]))
-            {
-                if (checkdate($matches [2], $matches [3], $matches [1]))
-                {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Handy little function to validate a string to be used for a XML node
      *
      * @param  $strName
@@ -176,19 +154,7 @@ class Builder
         }
         elseif (is_string($val))
         {
-            /**
-             * @TODO This function needs moved somewhere more appropriate.
-             *
-             * Test if this is a datetime, if so lets do some parsing to get some useful dates into the XML
-             */
-            if (self::isValidDateTime($val))
-            {
-                $append = $this->appendDateTime($node, $val);
-            }
-            else
-            {
-                $append = $this->appendCData($node, $val);
-            }
+            $append = $this->appendCData($node, $val);
         }
         elseif (is_bool($val))
         {
