@@ -42,27 +42,8 @@ class Renderer extends BaseRenderer
         $xsl = new \XSLTProcessor();
         $xsl->importStyleSheet($dom);
 
-        $dom = new \DOMDocument();
-        $root = $dom->createElement('page');
-        $root = $dom->appendChild($root);
-
-        foreach ($parameters as $name => $value) {
-
-            $parameter = $dom->createElement($name);
-            $parameter = $root->appendChild($parameter);
-
-            if ($value instanceof \DOMNode) {
-                $child = $dom->importNode($value, true);
-                $parameter->appendChild($child);
-            } elseif ($value instanceof \SimpleXMLElement) {
-                $node = dom_import_simplexml($value);
-                $child = $dom->importNode($node, true);
-                $parameter->appendChild($child);
-            } else {
-                $text = $dom->createTextNode($value);
-                $parameter->appendChild($text);
-            }
-        }
+        $builder = new Builder($parameters); 
+        $dom = $builder->getDOM();
 
         // Environment
         $environment = array (
@@ -76,7 +57,7 @@ class Renderer extends BaseRenderer
         foreach ($environment as $name => $value) {
             $attr = $dom->createAttribute($name);
             $attr->appendChild($dom->createTextNode($value));
-            $root->appendChild($attr);
+            $dom->documentElement->appendChild($attr);
         }
 
         // Debug mode
