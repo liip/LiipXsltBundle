@@ -6,8 +6,8 @@ class Builder
 {
     protected $dom;
 
-    public function __construct($value) {
-
+    public function __construct($value)
+    {
         $this->dom = new \DOMDocument();
         $root = $this->dom->createElement('page');
         $this->dom->appendChild($root);
@@ -15,8 +15,8 @@ class Builder
         $this->parse($root, $value);
     }
 
-    public function parse($parent, $value) {
-
+    public function parse($parent, $value)
+    {
         if (is_array($value)) {
 
             foreach ($value as $name => $childValue) {
@@ -43,7 +43,8 @@ class Builder
         }
     }
 
-    public function getDOM() {
+    public function getDOM()
+    {
         return $this->dom;
     }
 }
