@@ -146,7 +146,7 @@ class Builder
          */
         if (is_array($val))
         {
-            $append = $this->appendInlineArray($node, $val);
+            $append = $this->parse($node, $val);
         }
         elseif (is_numeric($val))
         {
