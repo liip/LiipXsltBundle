@@ -36,14 +36,12 @@ class Builder
     public static function isElementNameValid($strName)
     {
         // Element name validation
-        if (strpos($strName, ' ') !== False || $strName == '')
-        {
+        if (strpos($strName, ' ') !== False || $strName == '') {
             // Bad key name, skip this entry
             return false;
         }
         //If key is not alpha numeric
-        if (!preg_match('|^\w+$|', $strName))
-        {
+        if (!preg_match('|^\w+$|', $strName)) {
             // Bad key name, skip this entry
             return false;
         }
@@ -60,8 +58,7 @@ class Builder
      */
     protected function parse($parentNode, $arr)
     {
-        if (!is_array($arr))
-        {
+        if (!is_array($arr)) {
             return false;
         }
         $append = true;
@@ -70,13 +67,11 @@ class Builder
             /**
              * Is this an array, and not a numeric key?
              */
-            if (is_array($data) && is_numeric($key) !== true)
-            {
+            if (is_array($data) && is_numeric($key) !== true) {
                 /**
                  * Is this array fully numeric keys?
                  */
-                if (array_values($data) === $data)
-                {
+                if (array_values($data) === $data) {
                     /**
                      * Create nodes to append to $parentNode based on the $key of this array
                      * Produces <xml><item>0</item><item>1</item></xml>
@@ -89,22 +84,22 @@ class Builder
                 }
                 else
                 {
-                    $append=$this->appendNode($parentNode, $data, $key);
+                    $append = $this->appendNode($parentNode, $data, $key);
                 }
             }
-            /**
-            * This test will happen if an array has mixed numeric keys and alphanumeric keys
-            */
+                /**
+                 * This test will happen if an array has mixed numeric keys and alphanumeric keys
+                 */
             elseif (is_numeric($key))
             {
-                $append=$this->appendNode($parentNode, $data, "object");
+                $append = $this->appendNode($parentNode, $data, "object");
             }
-            /**
-            * The simplest call. Add some text to the parent
-            */
+                /**
+                 * The simplest call. Add some text to the parent
+                 */
             elseif (self::isElementNameValid($key))
             {
-                $append=$this->appendNode($parentNode, $data, $key);
+                $append = $this->appendNode($parentNode, $data, $key);
             }
         }
         return $append;
@@ -125,8 +120,7 @@ class Builder
         /**
          * We may have decided not to append this node, either in error or if its $nodename is not valid
          */
-        if ($appendNode)
-        {
+        if ($appendNode) {
             $parentNode->appendChild($node);
         }
         return $appendNode;
@@ -145,8 +139,7 @@ class Builder
         /**
          * Ah ha, an array. Let's recurse
          */
-        if (is_array($val))
-        {
+        if (is_array($val)) {
             $append = $this->parse($node, $val);
         }
         elseif (is_numeric($val))
@@ -172,7 +165,7 @@ class Builder
             $child = $this->dom->importNode($node, true);
             $node->appendChild($child);
         }
-        
+
         return $append;
     }
 
@@ -183,8 +176,7 @@ class Builder
      */
     protected function appendXMLString($node, $val)
     {
-        if (strlen($val) > 0)
-        {
+        if (strlen($val) > 0) {
             $frag = $this->dom->createDocumentFragment();
             $frag->appendXML($val);
             $node->appendChild($frag);
@@ -260,8 +252,7 @@ class Builder
      */
     protected function appendDocumentFragment($node, $fragment)
     {
-        if ($fragment instanceof DOMDocumentFragment)
-        {
+        if ($fragment instanceof DOMDocumentFragment) {
             $node->appendChild($fragment);
             return true;
         }
