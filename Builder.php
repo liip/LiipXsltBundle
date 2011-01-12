@@ -135,6 +135,9 @@ class Builder
             $append = $this->parse($node, $val);
         } elseif (method_exists($val, 'toArray')) {
             $this->parse($node, $val->toArray());
+        } elseif ($val instanceof \SimpleXMLElement){
+            $child = $this->dom->importNode(dom_import_simplexml($val), true);
+            $node->appendChild($child);
         } elseif ($val instanceof \Traversable) {
             $this->parse($node, $val);
         } elseif (is_numeric($val)){
@@ -145,9 +148,6 @@ class Builder
             $append = $this->appendText($node, intval($val));
         } elseif ($val instanceof \DOMNode){
             $child = $this->dom->importNode($val, true);
-            $node->appendChild($child);
-        } elseif ($val instanceof \SimpleXMLElement){
-            $child = $this->dom->importNode(dom_import_simplexml($val), true);
             $node->appendChild($child);
         }
 
