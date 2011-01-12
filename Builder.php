@@ -64,7 +64,7 @@ class Builder
         {
             return false;
         }
-
+        $append = true;
         foreach ($arr as $key => $data)
         {
             /**
@@ -84,12 +84,12 @@ class Builder
                      */
                     foreach ($data as $subdata)
                     {
-                        $this->appendNode($parentNode, $subdata, $key);
+                        $append = $this->appendNode($parentNode, $subdata, $key);
                     }
                 }
                 else
                 {
-                    $this->appendNode($parentNode, $data, $key);
+                    $append=$this->appendNode($parentNode, $data, $key);
                 }
             }
             /**
@@ -97,17 +97,17 @@ class Builder
             */
             elseif (is_numeric($key))
             {
-                $this->appendNode($parentNode, $data, "object");
+                $append=$this->appendNode($parentNode, $data, "object");
             }
             /**
             * The simplest call. Add some text to the parent
             */
             elseif (self::isElementNameValid($key))
             {
-                $this->appendNode($parentNode, $data, $key);
+                $append=$this->appendNode($parentNode, $data, $key);
             }
         }
-
+        return $append;
     }
 
     /**
@@ -129,6 +129,7 @@ class Builder
         {
             $parentNode->appendChild($node);
         }
+        return $appendNode;
     }
 
     /**
