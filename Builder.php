@@ -79,8 +79,7 @@ class Builder
                     foreach ($data as $subdata) {
                         $append = $this->appendNode($parentNode, $subdata, $key);
                     }
-                }
-                else {
+                } else {
                     $append = $this->appendNode($parentNode, $data, $key);
                 }
             } elseif (is_numeric($key)) {
