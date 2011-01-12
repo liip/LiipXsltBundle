@@ -70,7 +70,7 @@ class Builder
                 /**
                  * Is this array fully numeric keys?
                  */
-                if (array_values($data) === $data) {
+                if (ctype_digit( implode('', array_keys($data) ) )) {
                     /**
                      * Create nodes to append to $parentNode based on the $key of this array
                      * Produces <xml><item>0</item><item>1</item></xml>
@@ -79,21 +79,18 @@ class Builder
                     foreach ($data as $subdata) {
                         $append = $this->appendNode($parentNode, $subdata, $key);
                     }
-                }
-                else {
+                } else {
                     $append = $this->appendNode($parentNode, $data, $key);
                 }
-            }
+            } elseif (is_numeric($key)) {
                 /**
                  * This test will happen if an array has mixed numeric keys and alphanumeric keys
                  */
-            elseif (is_numeric($key)) {
                 $append = $this->appendNode($parentNode, $data, "object");
-            }
-            /**
-             * The simplest call. Add some text to the parent
-             */
-            elseif (self::isElementNameValid($key)) {
+            } elseif (self::isElementNameValid($key)) {
+                /**
+                * The simplest call. Add some text to the parent
+                */
                 $append = $this->appendNode($parentNode, $data, $key);
             }
         }
@@ -136,21 +133,20 @@ class Builder
          */
         if (is_array($val)) {
             $append = $this->parse($node, $val);
-        }
-        elseif (is_numeric($val)){
-            $append = $this->appendNumeric($node, $val);
-        }
-        elseif (is_string($val)){
+        } elseif (method_exists($val, 'toArray')) {
+            $this->parse($node, $val->toArray());
+        } elseif ($val instanceof \Traversable) {
+            $this->parse($node, $val);
+        } elseif (is_numeric($val)){
+            $append = $this->appendText($node, $val);
+        } elseif (is_string($val)){
             $append = $this->appendCData($node, $val);
-        }
-        elseif (is_bool($val)){
-            $append = $this->appendCData($node, intval($val));
-        }
-        elseif ($val instanceof \DOMNode){
+        } elseif (is_bool($val)){
+            $append = $this->appendText($node, intval($val));
+        } elseif ($val instanceof \DOMNode){
             $child = $this->dom->importNode($val, true);
             $node->appendChild($child);
-        }
-        elseif ($val instanceof \SimpleXMLElement){
+        } elseif ($val instanceof \SimpleXMLElement){
             $child = $this->dom->importNode(dom_import_simplexml($val), true);
             $node->appendChild($child);
         }
@@ -180,7 +176,7 @@ class Builder
      * @param  $val
      * @return bool
      */
-    protected function appendNumeric($node, $val)
+    protected function appendText($node, $val)
     {
         $nodeText = $this->dom->createTextNode($val);
         $node->appendChild($nodeText);
