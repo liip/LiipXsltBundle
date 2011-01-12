@@ -62,8 +62,7 @@ class Builder
             return false;
         }
         $append = true;
-        foreach ($arr as $key => $data)
-        {
+        foreach ($arr as $key => $data) {
             /**
              * Is this an array, and not a numeric key?
              */
@@ -77,28 +76,24 @@ class Builder
                      * Produces <xml><item>0</item><item>1</item></xml>
                      * From array("item" => array(0,1));
                      */
-                    foreach ($data as $subdata)
-                    {
+                    foreach ($data as $subdata) {
                         $append = $this->appendNode($parentNode, $subdata, $key);
                     }
                 }
-                else
-                {
+                else {
                     $append = $this->appendNode($parentNode, $data, $key);
                 }
             }
                 /**
                  * This test will happen if an array has mixed numeric keys and alphanumeric keys
                  */
-            elseif (is_numeric($key))
-            {
+            elseif (is_numeric($key)) {
                 $append = $this->appendNode($parentNode, $data, "object");
             }
-                /**
-                 * The simplest call. Add some text to the parent
-                 */
-            elseif (self::isElementNameValid($key))
-            {
+            /**
+             * The simplest call. Add some text to the parent
+             */
+            elseif (self::isElementNameValid($key)) {
                 $append = $this->appendNode($parentNode, $data, $key);
             }
         }
@@ -142,25 +137,20 @@ class Builder
         if (is_array($val)) {
             $append = $this->parse($node, $val);
         }
-        elseif (is_numeric($val))
-        {
+        elseif (is_numeric($val)){
             $append = $this->appendNumeric($node, $val);
         }
-        elseif (is_string($val))
-        {
+        elseif (is_string($val)){
             $append = $this->appendCData($node, $val);
         }
-        elseif (is_bool($val))
-        {
+        elseif (is_bool($val)){
             $append = $this->appendCData($node, intval($val));
         }
-        elseif ($val instanceof \DOMNode)
-        {
+        elseif ($val instanceof \DOMNode){
             $child = $this->dom->importNode($val, true);
             $node->appendChild($child);
         }
-        elseif ($val instanceof \SimpleXMLElement)
-        {
+        elseif ($val instanceof \SimpleXMLElement){
             $node = dom_import_simplexml($val);
             $child = $this->dom->importNode($node, true);
             $node->appendChild($child);
@@ -194,39 +184,6 @@ class Builder
     protected function appendNumeric($node, $val)
     {
         $nodeText = $this->dom->createTextNode($val);
-        $node->appendChild($nodeText);
-
-        return true;
-    }
-
-    /**
-     * @param  $node
-     * @param  $val
-     * @return bool
-     */
-    protected function appendDateTime($node, $val)
-    {
-        $ts = strtotime($val);
-        $nodeText = $this->dom->createCDATASection($val);
-        $node->setAttribute("ts", $ts);
-        $node->setAttribute("d", date("d", $ts)); // 2 digit date with leading zero
-        $node->setAttribute("j", date("j", $ts)); // 2 digit date without leading zero
-        $node->setAttribute("D", date("D", $ts));
-        $node->setAttribute("l", date("l", $ts));
-        $node->setAttribute("S", date("S", $ts));
-        $node->setAttribute("m", date("m", $ts));
-        $node->setAttribute("M", date("M", $ts));
-        $node->setAttribute("F", date("F", $ts));
-        $node->setAttribute("n", date("n", $ts));
-        $node->setAttribute("t", date("t", $ts));
-        $node->setAttribute("y", date("y", $ts));
-        $node->setAttribute("Y", date("Y", $ts));
-        $node->setAttribute("g", date("g", $ts));
-        $node->setAttribute("G", date("G", $ts));
-        $node->setAttribute("h", date("h", $ts));
-        $node->setAttribute("H", date("H", $ts));
-        $node->setAttribute("i", date("i", $ts));
-        $node->setAttribute("s", date("s", $ts));
         $node->appendChild($nodeText);
 
         return true;
