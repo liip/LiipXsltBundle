@@ -58,7 +58,10 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
                 )
             )
         );
-        $parameters = array('rss' => $rss, 'SearchResults' =>$content);
+        
+        $simplexml = simplexml_load_string('<parent><child>Example</child></parent>');
+        
+        $parameters = array('rss' => $rss, 'SearchResults' => $content, 'SimpleXMLElement' => $simplexml);
 
         $builder = new Builder($parameters);
         $xpath = new \DOMXpath($builder->getDOM());
@@ -73,6 +76,9 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 
         $elements = $xpath->query('/page/SearchResults/Result');
         $this->assertEquals(6, $elements->length);
+
+        $elements = $xpath->query('/page/SimpleXMLElement/parent/child');
+        $this->assertEquals('Example', $elements->item(0)->nodeValue);
     }
 
 }
