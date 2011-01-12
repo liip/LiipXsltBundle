@@ -138,13 +138,13 @@ class Builder
             $append = $this->parse($node, $val);
         }
         elseif (is_numeric($val)){
-            $append = $this->appendNumeric($node, $val);
+            $append = $this->appendText($node, $val);
         }
         elseif (is_string($val)){
             $append = $this->appendCData($node, $val);
         }
         elseif (is_bool($val)){
-            $append = $this->appendCData($node, intval($val));
+            $append = $this->appendText($node, intval($val));
         }
         elseif ($val instanceof \DOMNode){
             $child = $this->dom->importNode($val, true);
@@ -181,7 +181,7 @@ class Builder
      * @param  $val
      * @return bool
      */
-    protected function appendNumeric($node, $val)
+    protected function appendText($node, $val)
     {
         $nodeText = $this->dom->createTextNode($val);
         $node->appendChild($nodeText);
