@@ -151,8 +151,7 @@ class Builder
             $node->appendChild($child);
         }
         elseif ($val instanceof \SimpleXMLElement){
-            $node = dom_import_simplexml($val);
-            $child = $this->dom->importNode($node, true);
+            $child = $this->dom->importNode(dom_import_simplexml($val), true);
             $node->appendChild($child);
         }
 
