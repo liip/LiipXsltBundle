@@ -11,6 +11,7 @@
             <tag name="templating.renderer" alias="xsl" />
             <argument type="service" id="kernel" />
             <argument type="service" id="request" />
+            <argument type="service" id="router" />
         </service>
     </services>
 </container>
