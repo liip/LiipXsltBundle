@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Kernel;
 use Bundle\Liip\XsltBundle\Extension;
 
-class EnviromentExtension implements Extension
+class EnvironmentExtension implements Extension
 {
     protected $kernel;
     protected $request;
@@ -27,7 +27,7 @@ class EnviromentExtension implements Extension
             'debug' => $this->kernel->isDebug() ? 'true' : 'false',
         );
 
-        $node = $dom->createElement('enviroment');
+        $node = $dom->createElement('environment');
         $dom->documentElement->appendChild($node);
 
         foreach ($environment as $name => $value) {

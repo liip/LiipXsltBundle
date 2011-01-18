@@ -47,5 +47,5 @@ This bundle already includes different extensions. To use them, use this in your
 
         # app/config/config.yml
         xslt.config:
-             extensions: [xslt.extension.enviroment, xslt.extension.routes, xslt.extension.debug]
+             extensions: [xslt.extension.environment, xslt.extension.routes, xslt.extension.debug]
 

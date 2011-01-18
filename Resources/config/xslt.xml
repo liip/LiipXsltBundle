@@ -13,7 +13,7 @@
             <argument type="service" id="templating.loader" />
             <argument>%xslt.options%</argument>
         </service>
-        <service id="xslt.extension.enviroment" class="Bundle\Liip\XsltBundle\Extension\EnviromentExtension">
+        <service id="xslt.extension.environment" class="Bundle\Liip\XsltBundle\Extension\EnvironmentExtension">
             <argument type="service" id="kernel" />
             <argument type="service" id="request" />
         </service>
