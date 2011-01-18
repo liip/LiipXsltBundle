@@ -2,13 +2,15 @@
 <container xmlns="http://www.symfony-project.org/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="xslt.renderer.class">Bundle\Liip\XsltBundle\Renderer</parameter>
+        <parameter key="xslt.engine.class">Bundle\Liip\XsltBundle\XsltEngine</parameter>
         <parameter key="xslt.options" type="collection"></parameter>
     </parameters>
 
     <services>
-        <service id="xslt.renderer" class="%xslt.renderer.class%">
-            <tag name="templating.renderer" alias="xsl" />
+        <service id="xslt.engine" class="%xslt.engine.class%">
+            <tag name="templating.engine" alias="xsl" priority="300" />
+            <argument type="service" id="service_container" />
+            <argument type="service" id="templating.loader" />
             <argument type="service" id="kernel" />
             <argument type="service" id="request" />
             <argument type="service" id="router" />
