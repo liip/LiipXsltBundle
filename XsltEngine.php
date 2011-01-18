@@ -20,6 +20,14 @@ class XsltEngine implements EngineInterface
     protected $router;
     protected $options;
 
+    protected static $router_instance;
+  
+    public static function route_generate($name, $json)
+    {
+      $params = json_decode($json,true);
+      return self::$router_instance->generate($name, $params);
+    }
+  
     public function __construct(ContainerInterface $container, LoaderInterface $loader, Kernel $kernel, Request $request, Router $router, $options = array())
     {
         $this->container = $container;
@@ -28,6 +36,7 @@ class XsltEngine implements EngineInterface
         $this->request = $request;
         $this->options = $options;
         $this->router = $router;
+        self::$router_instance = $router;
     }
 
     /**
@@ -54,8 +63,9 @@ class XsltEngine implements EngineInterface
         }
 
         $xsl = new \XSLTProcessor();
+        $xsl->registerPHPFunctions();
         $xsl->importStyleSheet($dom);
-
+        
         $builder = new Builder($parameters);
         $dom = $builder->getDOM();
 
@@ -73,7 +83,7 @@ class XsltEngine implements EngineInterface
             $attr->appendChild($dom->createTextNode($value));
             $dom->documentElement->appendChild($attr);
         }
-
+        
         // Routes
         $routes = $dom->createElement('routes');
         $dom->documentElement->appendChild($routes);
