@@ -15,19 +15,19 @@ class XsltEngine implements EngineInterface
 {
     protected $container;
     protected $loader;
-    protected $kernel;
-    protected $request;
-    protected $router;
-    protected $options;
 
-    public function __construct(ContainerInterface $container, LoaderInterface $loader, Kernel $kernel, Request $request, Router $router, $options = array())
+    protected $extensions = array();
+
+    public function __construct(ContainerInterface $container, LoaderInterface $loader, $options = array())
     {
         $this->container = $container;
         $this->loader = $loader;
-        $this->kernel = $kernel;
-        $this->request = $request;
-        $this->options = $options;
-        $this->router = $router;
+
+        if (isset($options['extensions'])) {
+            foreach ($options['extensions'] as $extension) {
+                $this->extensions[] = $this->container->get($extension);
+            }
+        }
     }
 
     /**
@@ -59,90 +59,9 @@ class XsltEngine implements EngineInterface
         $builder = new Builder($parameters);
         $dom = $builder->getDOM();
 
-        // Environment
-        $environment = array (
-            'base_path' => $this->request->getBasePath(),
-            'base_url' => $this->request->getBaseUrl(),
-            'app_name' => $this->kernel->getName(),
-            'env' => $this->kernel->getEnvironment(),
-            'debug' => $this->kernel->isDebug() ? 'true' : 'false',
-        );
-
-        foreach ($environment as $name => $value) {
-            $attr = $dom->createAttribute($name);
-            $attr->appendChild($dom->createTextNode($value));
-            $dom->documentElement->appendChild($attr);
-        }
-
-        // Routes
-        $routes = $dom->createElement('routes');
-        $dom->documentElement->appendChild($routes);
-        foreach ($this->router->getRouteCollection()->all() as $name => $route) {
-
-            $defaults = $route->getDefaults();
-            $compiled = $route->compile();
-
-            // Route node
-            $node = $dom->createElement('route');
-            $routes->appendChild($node);
-
-            // Name attribute
-            $attr = $dom->createAttribute('name');
-            $attr->appendChild($dom->createTextNode($name));
-            $node->appendChild($attr);
-
-            // Tokens
-            foreach ($compiled->getTokens() as $token) {
-
-                $type = $token[0];
-
-                $tokenNode = $dom->createElement('token');
-                $attr = $dom->createAttribute('type');
-                $attr->appendChild($dom->createTextNode($type));
-                $tokenNode->appendChild($attr);
-                $node->appendChild($tokenNode);
-
-                if ('variable' === $type) {
-
-                    $name = $token[3];
-
-                    $attr = $dom->createAttribute('name');
-                    $attr->appendChild($dom->createTextNode($name));
-                    $tokenNode->appendChild($attr);
-
-
-                    if (isset($defaults[$name])) {
-
-                        $attr = $dom->createAttribute('default');
-                        $attr->appendChild($dom->createTextNode($defaults[$name]));
-                        $tokenNode->appendChild($attr);
-                    }
-
-                    $textNode = $dom->createTextNode($token[1]);
-                    $tokenNode->appendChild($textNode);
-
-                } elseif ('text' === $type) {
-
-                    $textNode = $dom->createTextNode($token[1].$token[2]);
-                    $tokenNode->appendChild($textNode);
-
-                } else {
-                    // TODO handle custom tokens
-                }
-            }
-        }
-
-        // Debug mode
-        if ($this->kernel->isDebug()) {
-
-            // Check for ?XML parameter
-            if ($this->request->query->get('XML', false) !== false) {
-
-                // print raw XML
-                header('Content-Type: text/xml');
-                echo $dom->saveXML();
-                exit;
-            }
+        // Extensions
+        foreach ($this->extensions as $extension) {
+            $extension->apply($dom);
         }
 
         return $xsl->transformToXML($dom);

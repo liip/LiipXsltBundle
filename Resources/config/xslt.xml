@@ -11,9 +11,18 @@
             <tag name="templating.engine" alias="xsl" priority="300" />
             <argument type="service" id="service_container" />
             <argument type="service" id="templating.loader" />
+            <argument>%xslt.options%</argument>
+        </service>
+        <service id="xslt.extension.enviroment" class="Bundle\Liip\XsltBundle\Extension\EnviromentExtension">
             <argument type="service" id="kernel" />
             <argument type="service" id="request" />
+        </service>
+        <service id="xslt.extension.routes" class="Bundle\Liip\XsltBundle\Extension\RoutesExtension">
             <argument type="service" id="router" />
+        </service>
+        <service id="xslt.extension.debug" class="Bundle\Liip\XsltBundle\Extension\DebugExtension">
+            <argument type="service" id="kernel" />
+            <argument type="service" id="request" />
         </service>
     </services>
 </container>
