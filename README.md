@@ -36,4 +36,4 @@ Usage
 
 Create an XSLT file in your views folder. Then in your controller simply call:
 
-    return $this->display('HelloBundle:Hello:index.xsl', array('text' => 'Awesome!'));
+    return $this->render('HelloBundle:Hello:index.xslt.html', array('name' => $name));
