@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\Liip\XsltBundle;
+namespace Liip\XsltBundle;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;

@@ -1,12 +1,21 @@
 <?php
 
-namespace Bundle\Liip\XsltBundle;
+namespace Liip\XsltBundle;
 
-use Bundle\Liip\XsltBundle\DependencyInjection\XsltExtension;
+use Liip\XsltBundle\DependencyInjection\XsltExtension;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class LiipXsltBundle extends Bundle
 {
+    public function getNamespace()
+    {
+        return __NAMESPACE__;
+    }
+
+    public function getPath()
+    {
+        return strtr(__DIR__, '\\', '/');
+    }
 }

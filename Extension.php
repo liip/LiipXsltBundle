@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\Liip\XsltBundle;
+namespace Liip\XsltBundle;
 
 interface Extension {
 

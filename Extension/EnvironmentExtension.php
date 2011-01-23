@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\Liip\XsltBundle\Extension;
+namespace Liip\XsltBundle\Extension;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Kernel;
-use Bundle\Liip\XsltBundle\Extension;
+use Liip\XsltBundle\Extension;
 
 class EnvironmentExtension implements Extension
 {

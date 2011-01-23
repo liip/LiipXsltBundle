@@ -1,6 +1,8 @@
 <?php
 
-namespace Bundle\Liip\XsltBundle;
+namespace Liip\XsltBundle\Tests;
+
+use Liip\XsltBundle\Builder;
 
 class BuilderTest extends \PHPUnit_Framework_TestCase
 {

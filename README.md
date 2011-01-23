@@ -18,7 +18,7 @@ Installation
         {
             return array(
                 // ...
-                new Bundle\Liip\XsltBundle\LiipXsltBundle(),
+                new Liip\XsltBundle\LiipXsltBundle(),
                 // ...
             );
         }

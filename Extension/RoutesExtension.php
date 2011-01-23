@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\Liip\XsltBundle\Extension;
+namespace Liip\XsltBundle\Extension;
 
 use Symfony\Component\Routing\Router;
-use Bundle\Liip\XsltBundle\Extension;
+use Liip\XsltBundle\Extension;
 
 class RoutesExtension implements Extension
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\Liip\XsltBundle\DependencyInjection;
+namespace Liip\XsltBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -12,15 +12,18 @@ class XsltExtension extends Extension
     /**
      * Loads the Xslt configuration.
      *
-     * @param array            $config    An array of configuration settings
-     * @param ContainerBuilder $container A ContainerBuilder instance
+     * @param array $configs
+     * @param ContainerBuilder $container
      */
-    public function configLoad($config, ContainerBuilder $container)
+    public function configLoad($configs, ContainerBuilder $container)
     {
-        if (!$container->hasDefinition('xslt')) {
-            $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
-            $loader->load('xslt.xml');
+        $config = array_pop($configs);
+        foreach ($configs as $tmp) {
+            $config = array_merge($config, $tmp);
         }
+
+        $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
+        $loader->load('xslt.xml');
 
         $container->setParameter('xslt.options', array_replace($container->getParameter('xslt.options'), $config));
     }
