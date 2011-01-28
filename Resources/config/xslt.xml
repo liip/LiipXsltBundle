@@ -2,25 +2,25 @@
 <container xmlns="http://www.symfony-project.org/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="xslt.engine.class">Liip\XsltBundle\XsltEngine</parameter>
-        <parameter key="xslt.options" type="collection"></parameter>
+        <parameter key="liip_xslt.engine.class">Liip\XsltBundle\XsltEngine</parameter>
+        <parameter key="liip_xslt.options" type="collection"></parameter>
     </parameters>
 
     <services>
-        <service id="xslt.engine" class="%xslt.engine.class%">
+        <service id="liip_xslt.engine" class="%liip_xslt.engine.class%">
             <tag name="templating.engine" alias="xsl" priority="300" />
             <argument type="service" id="service_container" />
             <argument type="service" id="templating.loader" />
-            <argument>%xslt.options%</argument>
+            <argument>%liip_xslt.options%</argument>
         </service>
-        <service id="xslt.extension.environment" class="Liip\XsltBundle\Extension\EnvironmentExtension">
+        <service id="liip_xslt.extension.environment" class="Liip\XsltBundle\Extension\EnvironmentExtension">
             <argument type="service" id="kernel" />
             <argument type="service" id="request" />
         </service>
-        <service id="xslt.extension.routes" class="Liip\XsltBundle\Extension\RoutesExtension">
+        <service id="liip_xslt.extension.routes" class="Liip\XsltBundle\Extension\RoutesExtension">
             <argument type="service" id="router" />
         </service>
-        <service id="xslt.extension.debug" class="Liip\XsltBundle\Extension\DebugExtension">
+        <service id="liip_xslt.extension.debug" class="Liip\XsltBundle\Extension\DebugExtension">
             <argument type="service" id="kernel" />
             <argument type="service" id="request" />
         </service>

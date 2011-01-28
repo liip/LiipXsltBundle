@@ -25,7 +25,8 @@ class XsltExtension extends Extension
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
         $loader->load('xslt.xml');
 
-        $container->setParameter('xslt.options', array_replace($container->getParameter('xslt.options'), $config));
+        $options = array_replace($container->getParameter($this->getAlias().'.options'), $config);
+        $container->setParameter($this->getAlias().'.options', $options);
     }
 
     /**
@@ -40,7 +41,7 @@ class XsltExtension extends Extension
 
     public function getNamespace()
     {
-        return 'http://www.symfony-project.org/schema/dic/xslt';
+        return 'http://www.liip.ch/schema/dic/xslt';
     }
 
     public function getAlias()
