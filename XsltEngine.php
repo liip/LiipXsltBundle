@@ -68,7 +68,7 @@ class XsltEngine implements EngineInterface
 
         // Extensions
         foreach ($this->extensions as $extension) {
-            $extension->apply($dom);
+            $extension->apply($dom, $xsl);
         }
 
         return $xsl->transformToXML($dom);

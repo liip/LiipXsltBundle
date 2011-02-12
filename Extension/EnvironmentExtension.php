@@ -16,7 +16,7 @@ class EnvironmentExtension implements Extension
         $this->request = $request;
     }
 
-    public function apply(\DOMDocument $dom)
+    public function apply(\DOMDocument $dom, \XSLTProcessor $xslt)
     {
         $environment = array (
             'base_path' => $this->request->getBasePath(),

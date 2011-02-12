@@ -16,7 +16,7 @@ class DebugExtension implements Extension
         $this->request = $request;
     }
 
-    public function apply(\DOMDocument $dom)
+    public function apply(\DOMDocument $dom, \XSLTProcessor $xslt)
     {
         if ($this->kernel->isDebug()) {
 

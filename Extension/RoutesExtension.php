@@ -13,7 +13,7 @@ class RoutesExtension implements Extension
         $this->router = $router;
     }
 
-    public function apply(\DOMDocument $dom)
+    public function apply(\DOMDocument $dom, \XSLTProcessor $xslt)
     {
         $routes = $dom->createElement('routes');
         $dom->documentElement->appendChild($routes);
