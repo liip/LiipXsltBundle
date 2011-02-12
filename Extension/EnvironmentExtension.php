@@ -4,7 +4,6 @@ namespace Liip\XsltBundle\Extension;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Kernel;
-use Liip\XsltBundle\Extension;
 
 class EnvironmentExtension implements Extension
 {
