@@ -12,6 +12,7 @@
             <argument type="service" id="service_container" />
             <argument type="service" id="templating.name_parser" />
             <argument type="service" id="templating.loader" />
+            <argument type="service" id="liip_xslt.encoder" />
             <argument>%liip_xslt.options%</argument>
         </service>
         <service id="liip_xslt.extension.environment" class="Liip\XsltBundle\Extension\EnvironmentExtension">
@@ -24,6 +25,12 @@
         <service id="liip_xslt.extension.debug" class="Liip\XsltBundle\Extension\DebugExtension">
             <argument type="service" id="kernel" />
             <argument type="service" id="request" strict="false" />
+        </service>
+        <service id="liip_xslt.serializer" class="Symfony\Component\Serializer\Serializer" />
+        <service id="liip_xslt.encoder" class="Liip\XsltBundle\XmlEncoder">
+            <call method="setSerializer">
+                <argument type="service" id="liip_xslt.serializer" />
+            </call>
         </service>
     </services>
 </container>

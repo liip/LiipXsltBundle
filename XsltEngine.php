@@ -15,15 +15,20 @@ use Symfony\Component\Templating\TemplateNameParserInterface;
 class XsltEngine implements EngineInterface
 {
     protected $container;
+    protected $parser;
     protected $loader;
+
+    protected $encoder;
 
     protected $extensions = array();
 
-    public function __construct(ContainerInterface $container, TemplateNameParserInterface $parser, LoaderInterface $loader, $options = array())
+    public function __construct(ContainerInterface $container, TemplateNameParserInterface $parser, LoaderInterface $loader, XmlEncoder $encoder, $options = array())
     {
         $this->container = $container;
         $this->parser  = $parser;
         $this->loader = $loader;
+
+        $this->encoder = $encoder;
 
         if (isset($options['extensions'])) {
             foreach ($options['extensions'] as $extension) {
@@ -58,8 +63,8 @@ class XsltEngine implements EngineInterface
         $xsl = new \XSLTProcessor();
         $xsl->importStyleSheet($dom);
 
-        $builder = new Builder($parameters);
-        $dom = $builder->getDOM();
+        $this->encoder->encode($parameters);
+        $dom = $this->encoder->getDom();
 
         // Extensions
         foreach ($this->extensions as $extension) {
