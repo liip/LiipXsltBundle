@@ -8,7 +8,7 @@ Installation
 
 1. Add this bundle to your project as Git submodule:
 
-        $ git submodule add git://github.com/liip/XsltBundle.git src/Bundle/Liip/XsltBundle
+        $ git submodule add git://github.com/liip/XsltBundle.git src/Liip/XsltBundle
         $ git submodule update --recursive --init
 
 2. Add the bundle to your application kernel:
@@ -26,10 +26,10 @@ Installation
 3. Add the bundle to your application config:
 
         # app/config/config.yml
-        xslt.config: -
+        liip_xslt.config: -
 
         # app/config/config.xml
-        <xslt:config />
+        <liip_xslt:config />
 
 Usage
 =====
@@ -46,6 +46,6 @@ Extension can be used to add global data to the XML or to register PHP function 
 This bundle already includes different extensions. To use them, use this in your application config:
 
         # app/config/config.yml
-        xslt.config:
-             extensions: [xslt.extension.environment, xslt.extension.routes, xslt.extension.debug]
+        liip_xslt.config:
+             extensions: [liip_xslt.extension.environment, liip_xslt.extension.routes, liip_xslt.extension.debug]
 
