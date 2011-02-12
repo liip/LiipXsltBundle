@@ -7,22 +7,23 @@
     </parameters>
 
     <services>
-        <service id="liip_xslt.engine" class="%liip_xslt.engine.class%">
+        <service id="templating.engine.xslt" class="%liip_xslt.engine.class%">
             <tag name="templating.engine" alias="xsl" priority="300" />
             <argument type="service" id="service_container" />
+            <argument type="service" id="templating.name_parser" />
             <argument type="service" id="templating.loader" />
             <argument>%liip_xslt.options%</argument>
         </service>
         <service id="liip_xslt.extension.environment" class="Liip\XsltBundle\Extension\EnvironmentExtension">
             <argument type="service" id="kernel" />
-            <argument type="service" id="request" />
+            <argument type="service" id="request" strict="false" />
         </service>
         <service id="liip_xslt.extension.routes" class="Liip\XsltBundle\Extension\RoutesExtension">
             <argument type="service" id="router" />
         </service>
         <service id="liip_xslt.extension.debug" class="Liip\XsltBundle\Extension\DebugExtension">
             <argument type="service" id="kernel" />
-            <argument type="service" id="request" />
+            <argument type="service" id="request" strict="false" />
         </service>
     </services>
 </container>

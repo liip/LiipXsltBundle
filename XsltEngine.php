@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Templating\Loader\LoaderInterface;
 use Symfony\Component\Templating\Storage\FileStorage;
+use Symfony\Component\Templating\TemplateNameParserInterface;
 
 class XsltEngine implements EngineInterface
 {
@@ -18,9 +19,10 @@ class XsltEngine implements EngineInterface
 
     protected $extensions = array();
 
-    public function __construct(ContainerInterface $container, LoaderInterface $loader, $options = array())
+    public function __construct(ContainerInterface $container, TemplateNameParserInterface $parser, LoaderInterface $loader, $options = array())
     {
         $this->container = $container;
+        $this->parser  = $parser;
         $this->loader = $loader;
 
         if (isset($options['extensions'])) {
@@ -96,7 +98,9 @@ class XsltEngine implements EngineInterface
      */
     public function load($name)
     {
-        $template = $this->loader->load($name);
+        $template = $this->parser->parse($name);
+
+        $template = $this->loader->load($template);
         if (false === $template) {
             throw new \InvalidArgumentException(sprintf('The template "%s" does not exist.', $name));
         }
