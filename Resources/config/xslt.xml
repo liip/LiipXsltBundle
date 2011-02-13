@@ -26,6 +26,9 @@
             <argument type="service" id="kernel" />
             <argument type="service" id="request" strict="false" />
         </service>
+        <service id="liip_xslt.extension.callback" class="Liip\XsltBundle\Extension\CallbackExtension">
+            <argument type="service" id="router" />
+        </service>
         <service id="liip_xslt.serializer" class="Symfony\Component\Serializer\Serializer" />
         <service id="liip_xslt.encoder" class="Liip\XsltBundle\XmlEncoder">
             <call method="setSerializer">
