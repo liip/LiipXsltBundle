@@ -2,7 +2,7 @@
 
 namespace Liip\XsltBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -27,21 +27,6 @@ class XsltExtension extends Extension
 
         $options = array_replace($container->getParameter($this->getAlias().'.options'), $config);
         $container->setParameter($this->getAlias().'.options', $options);
-    }
-
-    /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
-     */
-    public function getXsdValidationBasePath()
-    {
-        return __DIR__.'/../Resources/config/schema';
-    }
-
-    public function getNamespace()
-    {
-        return 'http://www.liip.ch/schema/dic/xslt';
     }
 
     public function getAlias()
