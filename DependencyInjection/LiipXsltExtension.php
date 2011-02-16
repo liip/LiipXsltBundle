@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 
-class XsltExtension extends Extension
+class LiipXsltExtension extends Extension
 {
     /**
      * Loads the Xslt configuration.
@@ -15,7 +15,7 @@ class XsltExtension extends Extension
      * @param array $configs
      * @param ContainerBuilder $container
      */
-    public function configLoad($configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container)
     {
         $config = array_shift($configs);
         foreach ($configs as $tmp) {
