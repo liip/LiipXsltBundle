@@ -23,14 +23,6 @@ Installation
             );
         }
 
-3. Add the bundle to your application config:
-
-        # app/config/config.yml
-        liip_xslt.config: -
-
-        # app/config/config.xml
-        <liip_xslt:config />
-
 Usage
 =====
 
@@ -46,6 +38,6 @@ Extension can be used to add global data to the XML or to register PHP function 
 This bundle already includes different extensions. To use them, use this in your application config:
 
         # app/config/config.yml
-        liip_xslt.config:
+        liip_xslt:
              extensions: [liip_xslt.extension.environment, liip_xslt.extension.routes, liip_xslt.extension.debug]
 
