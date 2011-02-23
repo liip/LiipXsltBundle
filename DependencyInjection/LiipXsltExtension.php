@@ -28,9 +28,4 @@ class LiipXsltExtension extends Extension
         $options = array_replace($container->getParameter($this->getAlias().'.options'), $config);
         $container->setParameter($this->getAlias().'.options', $options);
     }
-
-    public function getAlias()
-    {
-        return 'liip_xslt';
-    }
 }
