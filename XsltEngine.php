@@ -85,7 +85,7 @@ class XsltEngine implements EngineInterface
     {
         try {
             $this->load($name);
-        } catch (\Twig_Error_Loader $e) {
+        } catch (\InvalidArgumentException $e) {
             return false;
         }
 
