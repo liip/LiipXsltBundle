@@ -34,9 +34,11 @@ Installation
 Usage
 =====
 
-Create an XSLT file in your views folder. Then in your controller simply call:
+Create an XSLT file in your views folder. Then in your controller simply call,
+where the name of the Bundle is ``HelloBundle`` and the name of the controller
+is ``HelloController``:
 
-    return $this->render('HelloBundle:Hello:index.html.xsl', array('name' => $name));
+    return $this->render('Hello:Hello:index.html.xsl', array('name' => $name));
 
 Extensions
 ==========
