@@ -47,7 +47,7 @@ Extension can be used to add global data to the XML or to register PHP function 
 
 This bundle already includes different extensions. To use them, use this in your application config:
 
-        # app/config/config.yml
-        liip_xslt:
-             extensions: [liip_xslt.extension.environment, liip_xslt.extension.routes, liip_xslt.extension.debug]
+    # app/config/config.yml
+    liip_xslt:
+         extensions: [liip_xslt.extension.environment, liip_xslt.extension.routes, liip_xslt.extension.debug]
 
