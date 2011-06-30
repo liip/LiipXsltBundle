@@ -8,7 +8,7 @@ Installation
 
     1. Add this bundle to your project as Git submodule:
 
-        $ git submodule add git://github.com/liip/XsltBundle.git vendor/bundles/Liip/XsltBundle
+        $ git submodule add git://github.com/liip/LiipXsltBundle.git vendor/bundles/Liip/XsltBundle
         $ git submodule update --recursive --init
 
 
