@@ -63,8 +63,9 @@ class XsltEngine implements EngineInterface
         $xsl = new \XSLTProcessor();
         $xsl->importStyleSheet($dom);
 
-        $this->encoder->encode($parameters);
-        $dom = $this->encoder->getDom();
+        $xml = $this->encoder->encode($parameters);
+        $dom = new \DOMDocument();
+        $dom->loadXML($xml);
 
         // Extensions
         foreach ($this->extensions as $extension) {
