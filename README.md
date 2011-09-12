@@ -6,30 +6,53 @@ Renderer for XSLT templates in Symfony2.
 Installation
 ============
 
-    1. Add this bundle to your project as Git submodule:
+1.  Add the following lines in your deps file:
+    
+    ```
+    [LiipXsltBundle]
+        git=http://github.com/liip/LiipXsltBundle.git
+        target=/bundles/Liip/XsltBundle
+    ```
 
-        $ git submodule add git://github.com/liip/LiipXsltBundle.git vendor/bundles/Liip/XsltBundle
-        $ git submodule update --recursive --init
+2.  Run the vendors script:
+    
+    ```
+    $ php bin/vendors install
+    ```
 
+3.  Add the Liip namespace to your autoloader:
+    
+    ```
+    // app/autoload.php
+    $loader->registerNamespaces(array(
+        'Liip' => __DIR__.'/../vendor/bundles',
+        // your other namespaces
+    ));
+    ```
 
-    2. Add the Liip namespace to your autoloader:
+4.  Add the bundle to your application kernel:
+    
+    ```
+    // app/AppKernel.php
+    public function registerBundles()
+    {
+        return array(
+            // ...
+            new Liip\XsltBundle\LiipXsltBundle(),
+            // ...
+        );
+    }
+    ```
 
-          // app/autoload.php
-          $loader->registerNamespaces(array(
-                'Liip' => __DIR__.'/../vendor/bundles',
-                // your other namespaces
-          ));
-    3. Add the bundle to your application kernel:
+5.  Enable the XSLT template engine in the config
+    
+    ```
+    # app/config/config.yml
+    # ...
+    templating:      { engines: ['twig', 'xslt'] }
+    # ...
+    ```
 
-        // app/AppKernel.php
-        public function registerBundles()
-        {
-            return array(
-                // ...
-                new Liip\XsltBundle\LiipXsltBundle(),
-                // ...
-            );
-        }
 
 Usage
 =====
