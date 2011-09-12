@@ -63,7 +63,8 @@ class RoutesExtension implements Extension
 
                 } elseif ('text' === $type) {
 
-                    $textNode = $dom->createTextNode($token[1].$token[2]);
+                    $tokens = array_slice($token, 1);
+                    $textNode = $dom->createTextNode(implode('', $tokens));
                     $tokenNode->appendChild($textNode);
 
                 } else {
